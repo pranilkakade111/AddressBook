@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class UC5
 {
@@ -151,6 +153,73 @@ public class UC5
 			exit=true;
      }
 
+	 void streamCheck()
+	  {
+		  boolean b1=false;
+		  
+		  while(!b1) {
+		  System.out.println("chose your suvey accordingly");
+		  System.out.println("[1]  for checking through city");
+		  System.out.println("[2]  for checking through state");
+		  System.out.println("[3]  for checking through number");
+         System.out.println("[4]  for checking through zipcode");
+         System.out.println("[5]  for checking through entity");
+         System.out.println("[6]  for exit");
+         
+		  int choice=sc.nextInt();
+		  
+		  switch(choice) 
+		  {
+		  case 1:
+			  System.out.println("for checking by city name");
+			  String checkout=sc.next();
+			  
+			List<Book> obj1= store.stream().filter(element -> element.getCity().equals(checkout)).collect(Collectors.toList());
+			System.out.println(obj1);
+			  break;
+			  
+		  case 2:
+			  System.out.println("for checking by state name");
+			  String checkout1=sc.next();			 
+			  long count=store.stream().filter(element -> element.getState().equals(checkout1)).count();
+			  System.out.println(count);
+			  
+			   List<Book> obj2= store.stream().filter(element -> element.getCity().
+					              equals(checkout1)).collect(Collectors.toList());
+			                      System.out.println(obj2);
+			                      break;
+			  
+		  case 3:
+			  System.out.println("for checking by phone number");
+			  String checkout2=sc.next();
+			  
+			  long countno=store.stream().filter(element -> element.getPhone_no().equals(checkout2)).count();
+			  System.out.println(countno);
+			  
+			   List<Book> obj3= store.stream().filter(element -> element.getPhone_no().
+					             equals(checkout2)).collect(Collectors.toList());
+			   					 System.out.println(obj3);
+			   					 break;
+			   					 
+		  case 4:
+			  System.out.println("For Checking by zip code");
+			  
+		      String checkout3=sc.next();
+		       long countzip=store.stream().filter(element -> element.getZip_code().equals(checkout3)).count();
+		       System.out.println(countzip);
+		       List<Book> obj4= store.stream().filter(element -> element.getZip_code().
+		    		            equals(checkout3)).collect(Collectors.toList());
+		       					System.out.println(obj4);
+		       					break;
+			  
+		  case 5:
+			  System.out.println("Done");
+				b1=true;  
+		 }
+	  }
+		                                 
+  }
+		 
 	public static void main(String[] args) {
 
 		while (!exit) {
@@ -159,7 +228,8 @@ public class UC5
 			System.out.println("2.displaying");
 			System.out.println("3.updating the addrss book");
 			System.out.println("4.for data removal");
-			System.out.println("5.For Exit");
+			System.out.println("5.for checking entity");
+			System.out.println("6.For Exit");
 			System.out.println("choose your option");
 			int userin = sc.nextInt();
 			switch (userin) 
@@ -179,8 +249,13 @@ public class UC5
 			case 4:
 				new UC5().delete();
 				break;
-
+				
 			case 5:
+				new UC5().streamCheck();
+				break;
+				
+				
+			case 6:
 				end();
 				break;
 			}
