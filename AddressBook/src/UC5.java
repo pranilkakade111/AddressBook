@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -11,13 +12,18 @@ public class UC5
 	
 
 	 static boolean exit = false;
+	private Book b_update;
+	private int indexof_store;
+	private static Scanner sc2;
 
-	 void add_new() {
+	 void add_new()
+	 {
 
 		System.out.println("enter the number of person you wnna to add");
 		int n = sc.nextInt();
 
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++)
+		{
 			Book b1 = new Book();
 			System.out.println("enter id");
 			
@@ -53,7 +59,7 @@ public class UC5
 			String fname_fromuser=sc.next();
 			Book b_update=null;
 			int indexof_store=-1;
-			for(int index=0; index<=store.size();index++)
+			for(int index=0; index<=store.size();)
 			{   
 				if(store.get(index).getFsname().equals(fname_fromuser))
 				{
@@ -127,14 +133,14 @@ public class UC5
 	        {
 	        	System.out.println("enter the input");
 	    		String fname_fromuser=sc.next();
-	    		Book b_update=null;
-	    		int indexof_store=-1;
+	    		setB_update(null);
+	    		setIndexof_store(-1);
 	    		for(int index=0; index<=store.size();index++)
 	    		{   
 	    			if(store.get(index).getFsname().equals(fname_fromuser))
 	    			{
-	    			b_update=store.remove(index);
-	    		    indexof_store=1;
+	    			setB_update(store.remove(index));
+	    		    setIndexof_store(1);
 	    		    break;
 	    			}
 	            }
@@ -219,19 +225,33 @@ public class UC5
 	  }
 		                                 
   }
+	
+	 
+	 void sorting() 
+	 {
+	      List<Book> view4= store.stream().sorted(Comparator.comparing(Book :: getFsname)).collect(Collectors.toList());
+          
+          view4.forEach(System.out::println);
+          
 		 
-	public static void main(String[] args) {
+	 }
+	 
+	public static void main(String[] args) 
+	{
 
-		while (!exit) {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("1. for adding contact");
+		while (!exit) 
+		{
+			sc2 = new Scanner(System.in);
+			System.out.println("1.for adding contact");
 			System.out.println("2.displaying");
 			System.out.println("3.updating the addrss book");
 			System.out.println("4.for data removal");
 			System.out.println("5.for checking entity");
-			System.out.println("6.For Exit");
+			System.out.println("6.for shorting the address book according to the name");
+			System.out.println("7.For Exit");
+			
 			System.out.println("choose your option");
-			int userin = sc.nextInt();
+			int userin = sc2.nextInt();
 			switch (userin) 
 			{
 			case 1:
@@ -253,9 +273,12 @@ public class UC5
 			case 5:
 				new UC5().streamCheck();
 				break;
+			
+			case 6: 
+				new UC5().sorting();
+				break;
 				
-				
-			case 6:
+			case 7:
 				end();
 				break;
 			}
@@ -263,6 +286,18 @@ public class UC5
 			
 		}
 	
+	}
+	public Book getB_update() {
+		return b_update;
+	}
+	public void setB_update(Book b_update) {
+		this.b_update = b_update;
+	}
+	public int getIndexof_store() {
+		return indexof_store;
+	}
+	public void setIndexof_store(int indexof_store) {
+		this.indexof_store = indexof_store;
 	}
 
 }
